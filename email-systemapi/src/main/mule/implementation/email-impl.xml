@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:email="http://www.mulesoft.org/schema/mule/email" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/email http://www.mulesoft.org/schema/mule/email/current/mule-email.xsd">
+	<sub-flow name="email-implSub_Flow" doc:id="8af12342-7573-4545-8add-5dd01ccb186b" >
+		<logger level="INFO" doc:name="before sending email" doc:id="e3e30364-81cd-4407-bd60-6ffeebe421ba" message="before sending email"/>
+		<email:send doc:name="Sending email" doc:id="87fc987b-eb6d-48e9-a73d-0d55b4c29d6c" config-ref="Email_SMTP" fromAddress="${email.user}" subject=' "Summary"'>
+			<email:to-addresses >
+				<email:to-address value="${email.to}" />
+			</email:to-addresses>
+			<email:body contentType="text/html" encoding="UTF-8" >
+			</email:body>
+		</email:send>
+		<logger level="INFO" doc:name="Sent email successfully" doc:id="ad805168-8e2c-4a0f-80e7-bf9d295fb758" message="Sent email successfully"/>
+	</sub-flow>
+</mule>
