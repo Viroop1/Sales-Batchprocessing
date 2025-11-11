@@ -1,0 +1,17 @@
+%dw 2.0
+
+type auto_8fa32457_8273_472d_9c53_1e1c247955b6_Input_Payload = {|
+  validRecords: Array<{|    CustomerID: String,     ProductID: String,     ProductName: String,     Quantity: Number,     Amount: Number,     OrderDate: String  |}>, 
+  invalidRecords: Array<anonymousType_1>
+|}
+type anonymousType_1 = {|
+  CustomerID: String, 
+  ProductID: String, 
+  ProductName: String, 
+  Quantity: Number, 
+  Amount: Number, 
+  OrderDate: String
+|}
+
+
+

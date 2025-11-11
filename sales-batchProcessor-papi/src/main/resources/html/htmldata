@@ -1,0 +1,54 @@
+<html>
+  <body style="font-family: Arial, sans-serif;">
+    <p>Dear <b>Operations Team</b>,</p>
+
+    <p>The latest <b>Batch Job Summary</b> is shown below:</p>
+
+    <table border="1" cellpadding="6" cellspacing="0" 
+           style="border-collapse: collapse; width: 100%; text-align: center;">
+      <tr style="background-color: #f2f2f2;">
+        <th>Field</th>
+        <th>Value</th>
+      </tr>
+      <tr>
+        <td>Batch Job ID</td>
+        <td>#[write(payload.batchJobInstanceId, "text/plain")]</td>
+      </tr>
+      <tr>
+        <td>Total Records</td>
+        <td>#[write(payload.totalRecords, "text/plain")]</td>
+      </tr>
+      <tr>
+        <td>Processed Records</td>
+        <td>#[write(payload.processedRecords, "text/plain")]</td>
+      </tr>
+      <tr>
+        <td>Successful Records</td>
+        <td>#[write(payload.successfulRecords, "text/plain")]</td>
+      </tr>
+      <tr>
+        <td>Failed Records</td>
+        <td>#[write(payload.failedRecords, "text/plain")]</td>
+      </tr>
+      <tr>
+        <td>Loaded Records</td>
+        <td>#[write(payload.loadedRecords, "text/plain")]</td>
+      </tr>
+      <tr>
+        <td>Elapsed Time (ms)</td>
+        <td>#[write(payload.elapsedTimeInMillis, "text/plain")]</td>
+      </tr>
+      <tr>
+        <td>Elapsed Time (s)</td>
+        <td>#[write((payload.elapsedTimeInMillis default 0) / 1000, "text/plain")]</td>
+      </tr>
+    </table>
+
+    <p style="margin-top: 16px;">
+      #[if (payload.failedRecords > 0) 
+          "⚠️ Some records failed during processing. Please review the error files." 
+        else 
+          "✅ All records were successfully processed. Great job!"]
+    </p>
+  </body>
+</html>

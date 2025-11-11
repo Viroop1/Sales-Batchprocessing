@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="batch-processing-implementation-impl-test-suite.xml" />
+	<munit:test name="APIKIT:BAD_REQUEST" doc:id="5011da51-9ada-4a7a-a1f6-810d6bf35d0a" expectedErrorType="APIKIT:BAD_REQUEST">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="4e33e838-c530-41cf-89e6-ea79689841d9" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="batch-processing-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:BAD_REQUEST" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="8ff77922-1e7c-4a24-8c4f-83423158a95e" name="batch-processing-papi-main"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="36012ee2-4233-4417-9d01-51ddeb1f46e9" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="APIKIT:NOT_FOUND" doc:id="17270af4-d784-43db-9e08-4c7b9062da7a" expectedErrorType="APIKIT:NOT_FOUND" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="64afe033-dfe8-4441-8c17-abc52d0a71d4" processor="apikit:router" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="batch-processing-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="c9c6aabd-4e9e-44a3-9e0f-00a61c7fd75f" name="batch-processing-papi-main" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="41dbf54e-74cd-48c1-9d5e-e7893992f62d" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="APIKIT:METHOD_NOT_ALLOWED" doc:id="2556dbe4-c74f-41af-9b4a-8668a0290727" expectedErrorType="APIKIT:METHOD_NOT_ALLOWED" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="d8f0deb9-c72e-455a-a161-858c9efdb9bc" processor="apikit:router" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="batch-processing-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:METHOD_NOT_ALLOWED" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="cfb4a538-89d2-4012-ba9f-1c99c437a922" name="batch-processing-papi-main" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="7bd468c1-86d9-4a55-b1fc-dba4262a0412" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="APIKIT:NOT_ACCEPTABLE" doc:id="52af3523-4aad-4323-8e1d-135ba4e500dd" expectedErrorType="APIKIT:NOT_ACCEPTABLE" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="f5657194-a8ef-47c8-84d2-3f9749d19ba4" processor="apikit:router" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="batch-processing-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_ACCEPTABLE" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="cdefa6bb-c668-46c2-913b-eae0c95187d3" name="batch-processing-papi-main" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="0b720ecc-fc38-40a8-b57b-ff7d790c425e" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="APIKIT:UNSUPPORTED_MEDIA_TYPE" doc:id="755c36b2-9e16-47d1-8bd9-5faf3e42fe40" expectedErrorType="APIKIT:UNSUPPORTED_MEDIA_TYPE" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="2eccc4fd-7a23-4beb-a5c6-73cce7a92c49" processor="apikit:router" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="batch-processing-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:UNSUPPORTED_MEDIA_TYPE" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="6c75bb26-b112-4df8-8854-8a0471de2805" name="batch-processing-papi-main" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="4f74e66e-08aa-4a1d-ae22-3a4bb044bd91" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="APIKIT:NOT_IMPLEMENTED" doc:id="0329a5af-8acf-41c4-8e52-3d7852a95692" expectedErrorType="APIKIT:NOT_IMPLEMENTED" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="963e3e43-049b-4ad6-9059-123bf0d5b315" processor="apikit:router" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="batch-processing-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="APIKIT:NOT_IMPLEMENTED" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="8b085742-2d76-43e3-bc84-519b54b283ef" name="batch-processing-papi-main" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="785126bf-55f1-4d56-b0dd-dd91ad252204" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="HTTP:BAD_REQUEST" doc:id="829af1f8-4123-4a77-8f8a-67f9abee874f" expectedErrorType="HTTP:BAD_REQUEST" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="e986bf02-615d-46a8-8cd9-23298ce52c64" processor="apikit:router" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="batch-processing-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="HTTP:BAD_REQUEST" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="81876fff-fff5-4e8c-a7c7-30f827ecccd0" name="batch-processing-papi-main" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="71aee85d-cba6-4545-8675-9d565683fd0d" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="HTTP:UNSUPPORTED_MEDIA_TYPE" doc:id="241520ac-10f9-42ca-907a-8b610fc3ee3b" expectedErrorType="HTTP:UNSUPPORTED_MEDIA_TYPE" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="19334d21-45ff-4ed8-9919-1731e91abb67" processor="apikit:router" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="batch-processing-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="HTTP:UNSUPPORTED_MEDIA_TYPE" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="24145b79-c881-4f19-9084-5a528099c7c8" name="batch-processing-papi-main" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="3f6e8f83-7f76-44c2-87b3-bd22b81e0d88" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="ANY" doc:id="a39136a5-3d46-4f93-a340-cddeef2ee5ba" expectedErrorType="ANY" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="46744131-5581-4edb-bb48-ad6219ce9c8a" processor="apikit:router" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="batch-processing-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="ANY" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="671863ff-107e-4e00-bd6f-4fb1b0909d74" name="batch-processing-papi-main" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="b2603fd1-942b-4402-86c6-9e3b7374c4e5" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<!-- [STUDIO:"batch-processing-implementation-impl-test-suite-batch-processing-implementation-implSub_FlowTest"]<munit:test name="batch-processing-implementation-impl-test-suite-batch-processing-implementation-implSub_FlowTest" doc:id="2f5e655a-c0b3-4e44-a330-ec312ba1fd9b" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="FTP list" doc:id="6b1bfe4d-5253-4112-8cd6-1986b9a21dad" processor="ftp:list">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="List" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="06086596-8442-4985-9612-534f6b369980" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[["/input/sales_batch_1.csv"&#93;&#93;' mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:attributes value='#[{&#10;	"queryParams": ""&#10;}&#93;' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="ftp:read" doc:id="8e2b7323-d587-4712-8d99-7634d6d374b0" processor="ftp:read">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Read" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="2964293a-e9ab-4351-b565-26d6e528d4dc" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[&#10;  {&#10;    "CustomerID": "C967",&#10;    "ProductID": "P103",&#10;    "ProductName": "Tablet",&#10;    "Quantity": "-1",&#10;    "Amount": "0",&#10;    "OrderDate": "2025-10-29"&#10;  },&#10;  {&#10;    "CustomerID": "C045",&#10;    "ProductID": "P108",&#10;    "ProductName": "Mouse",&#10;    "Quantity": "-2",&#10;    "Amount": "0",&#10;    "OrderDate": "2025-10-29"&#10;  },&#10;  {&#10;    "CustomerID": "C318",&#10;    "ProductID": "P104",&#10;    "ProductName": "Headphones",&#10;    "Quantity": "-2",&#10;    "Amount": "0",&#10;    "OrderDate": "2025-10-29"&#10;  },&#10;  {&#10;    "CustomerID": "C557",&#10;    "ProductID": "P109",&#10;    "ProductName": "Charger",&#10;    "Quantity": "4",&#10;    "Amount": "3200",&#10;    "OrderDate": "2025-10-29"&#10;  },&#10;  {&#10;    "CustomerID": "",&#10;    "ProductID": "P108",&#10;    "ProductName": "Mouse",&#10;    "Quantity": "2",&#10;    "Amount": "1200",&#10;    "OrderDate": "2025-10-29"&#10;  },&#10;  {&#10;    "CustomerID": "C800",&#10;    "ProductID": "P104",&#10;    "ProductName": "Headphones",&#10;    "Quantity": "2",&#10;    "Amount": "6000",&#10;    "OrderDate": "2025-10-29"&#10;  },&#10;  {&#10;    "CustomerID": "C128",&#10;    "ProductID": "P101",&#10;    "ProductName": "Mobile",&#10;    "Quantity": "8",&#10;    "Amount": "9600",&#10;    "OrderDate": "2025-10-29"&#10;  },&#10;  {&#10;    "CustomerID": "C762",&#10;    "ProductID": "P106",&#10;    "ProductName": "Monitor",&#10;    "Quantity": "4",&#10;    "Amount": "60000",&#10;    "OrderDate": "2025-10-29"&#10;  },&#10;  {&#10;    "CustomerID": "C192",&#10;    "ProductID": "P108",&#10;    "ProductName": "Mouse",&#10;    "Quantity": "4",&#10;    "Amount": "2400",&#10;    "OrderDate": "2025-10-29"&#10;  },&#10;  {&#10;    "CustomerID": "C947",&#10;    "ProductID": "P108",&#10;    "ProductName": "Mouse",&#10;    "Quantity": "9",&#10;    "Amount": "5400",&#10;    "OrderDate": "2025-10-29"&#10;  },&#10;  {&#10;    "CustomerID": "C745",&#10;    "ProductID": "P109",&#10;    "ProductName": "Charger",&#10;    "Quantity": "2",&#10;    "Amount": "1600",&#10;    "OrderDate": "2025-10-29"&#10;  },&#10;  {&#10;    "CustomerID": "C843",&#10;    "ProductID": "P107",&#10;    "ProductName": "Keyboard",&#10;    "Quantity": "-1",&#10;    "Amount": "0",&#10;    "OrderDate": "2025-10-29"&#10;  }&#10;&#93;&#93;' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="os:contains" doc:id="e6cb67ea-a886-4793-9c34-6f1f15216512" processor="os:contains">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="contains-filename" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="220e9b5b-fe34-426e-a173-323066539393" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "file": "/error/sales_batch_1.csv _validation_error_2025-11-10.csv",&#10;  "data": [&#10;    {&#10;      "CustomerID": "C967",&#10;      "ProductID": "P103",&#10;      "ProductName": "Tablet",&#10;      "Quantity": -1,&#10;      "Amount": 0,&#10;      "OrderDate": "2025-10-29"&#10;    }&#10;  &#93;&#10;}&#93;' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="ftp:write" doc:id="9bde0992-5253-4109-ba15-16ae49438a2f" processor="ftp:write">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="write-error-records" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="f844029c-3bf7-4a73-aba5-e73d0f077c3f" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[[&#10;    {&#10;      "CustomerID": "C003",&#10;      "ProductID": "P103",&#10;      "ProductName": "Tablet",&#10;      "Quantity": 3,&#10;      "Amount": 30000,&#10;      "OrderDate": "2025-10-29"&#10;    }&#10;  &#93;&#93;' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="http:request" doc:id="5e7a96fa-7fad-4d1f-8485-3489c34a57d5" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Requesting Db " attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="98a33569-e581-4193-be12-d9055d2ac224" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="os:contains1" doc:id="902a7e68-0e27-4411-8145-18e010de31f6" processor="os:contains" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="contains-filename" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="220e9b5b-fe34-426e-a173-323066539393" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "file": "/error/sales_batch_1.csv _validation_error_2025-11-10.csv",&#10;  "data": [&#10;    {&#10;      "CustomerID": "C967",&#10;      "ProductID": "P103",&#10;      "ProductName": "Tablet",&#10;      "Quantity": -1,&#10;      "Amount": 0,&#10;      "OrderDate": "2025-10-29"&#10;    }&#10;  &#93;&#10;}&#93;' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="ftp:write1" doc:id="cfea06aa-68a2-49c8-a97a-9341ab22cb93" processor="ftp:write" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="write-error-records" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="f844029c-3bf7-4a73-aba5-e73d0f077c3f" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#["&lt;html&gt;&#10;&lt;p&gt;Dear &lt;b&gt;Operations Team&lt;/b&gt;,&lt;/p&gt;&#10;&lt;p&gt;The latest &lt;b&gt;Batch Job Summary&lt;/b&gt; is shown below:&lt;/p&gt;&#10;&#10;&lt;th&gt;Field&lt;/th&gt;&#10;&lt;th&gt;Value&lt;/th&gt;&#10;&lt;/tr&gt;&#10;&lt;tr&gt;&#10;&lt;td&gt;Batch Job ID&lt;/td&gt;&#10;&lt;td&gt;3c52efd0-be1e-11f0-bf83-a8595f62a7bf&lt;/td&gt;&#10;&lt;/tr&gt;&#10;&lt;tr&gt;&#10;&lt;td&gt;Total Records&lt;/td&gt;&#10;&lt;td&gt;10&lt;/td&gt;&#10;&lt;/tr&gt;&#10;&lt;tr&gt;&#10;&lt;td&gt;Processed Records&lt;/td&gt;&#10;&lt;td&gt;10&lt;/td&gt;&#10;&lt;/tr&gt;&#10;&lt;tr&gt;&#10;&lt;td&gt;Successful Records&lt;/td&gt;&#10;&lt;td&gt;10&lt;/td&gt;&#10;&lt;/tr&gt;&#10;&lt;tr&gt;&#10;&lt;td&gt;Failed Records&lt;/td&gt;&#10;&lt;td&gt;0&lt;/td&gt;&#10;&lt;/tr&gt;&#10;&lt;tr&gt;&#10;&lt;td&gt;Loaded Records&lt;/td&gt;&#10;&lt;td&gt;10&lt;/td&gt;&#10;&lt;/tr&gt;&#10;&lt;tr&gt;&#10;&lt;td&gt;Elapsed Time (ms)&lt;/td&gt;&#10;&lt;td&gt;202698&lt;/td&gt;&#10;&lt;/tr&gt;&#10;&lt;tr&gt;&#10;&lt;td&gt;Elapsed Time (s)&lt;/td&gt;&#10;&lt;td&gt;202.698&lt;/td&gt;&#10;&lt;/tr&gt;&#10;&lt;/table&gt;&#10; &lt;p&gt;✅ All records were successfully processed. Great job!&#10;&lt;/p&gt;&#10;&lt;/body&gt;&#10;&lt;/html&gt;"&#93;' mediaType="text/html" encoding="UTF-8" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="http:request email" doc:id="69f094fb-fac7-49b3-ba95-43781213b7e8" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Requesting email" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="658e672c-5a47-4845-a586-4c024f8da8ef" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="85198c29-2420-497d-b15f-2e343af5748f" >
+				<munit:payload value='#["/input/sales_batch_1.csv"&#93;' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to batch-processing-implementation-implSub_Flow" doc:id="fbf7cba2-8dc5-49d4-9444-d98c2d622a76" name="batch-processing-implementation-implSub_Flow"/>
+		</munit:execution>
+	</munit:test> [STUDIO] -->
+
+
+</mule>
