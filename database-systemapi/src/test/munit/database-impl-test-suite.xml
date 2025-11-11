@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="database-impl-test-suite.xml" />
+	<munit:test name="database-impl-test-suite-database-implSub_FlowTest" doc:id="56a1727f-3145-4ae7-96d6-7314c990746a" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="57226e78-b538-4dfc-8520-74bb9207e951" processor="db:insert">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Inserting into database" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="12609cf7-c1d9-48c3-a17f-f918a9391247" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="Database_Config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="1938a5f8-e5ed-4c20-bbfb-96875c7e9225" >
+				<munit:payload value='#[[{&#10;    "CustomerID": "C557",&#10;    "ProductID": "P109",&#10;    "ProductName": "Charger",&#10;    "Quantity": 4,&#10;    "Amount": 3200,&#10;    "OrderDate": "2025-10-29"&#10;  }]]' encoding="UTF-8" mediaType="application/java" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to database-implSub_Flow" doc:id="8ecd7ae7-c0a5-4e9f-a294-5a7c776b7d8f" name="post:\insert:database-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="56fbdc9f-5917-4d1f-a6fd-ff7fc644a4eb" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="HTTP:BAD_REQUEST" doc:id="a11acd2b-95a3-48a3-a050-11072a140dd1" expectedErrorType="HTTP:BAD_REQUEST" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="4bfba26c-09ca-496f-83c9-6ac74449feed" processor="apikit:router" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="database-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="HTTP:BAD_REQUEST" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="12eed319-b184-4f9c-9ef5-3a52eacab58e" name="database-main" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="HTTP:UNSUPPORTED_MEDIA_TYPE" doc:id="f31e60ba-c48e-4638-aaf9-fb1e90cc6f38" expectedErrorType="HTTP:UNSUPPORTED_MEDIA_TYPE" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="4bfba26c-09ca-496f-83c9-6ac74449feed" processor="apikit:router" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="database-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="HTTP:UNSUPPORTED_MEDIA_TYPE" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="19773a72-e9cb-4d37-af5c-47b41b675b75" name="database-main" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="ANY" doc:id="36547d13-9298-418c-858c-19ede5768920" expectedErrorType="ANY" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="4bfba26c-09ca-496f-83c9-6ac74449feed" processor="apikit:router" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="email-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="ANY" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="0c687b05-3a3f-495a-8a97-a4f9af7bb559" name="database-main" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="APIKIT:BAD_REQUEST" doc:id="263fab1c-f711-46df-945a-c7dc646f4658" expectedErrorType="APIKIT:BAD_REQUEST">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="4bfba26c-09ca-496f-83c9-6ac74449feed" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="database-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="APIKIT:BAD_REQUEST" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="Flow Reference" doc:id="74eab1ff-f9b4-4147-9579-3858b3fce9d6" name="database-main" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="APIKIT:NOT_FOUND" doc:id="930b40ae-6560-49d2-b9a8-d52eb7061414" expectedErrorType="APIKIT:NOT_FOUND">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="4bfba26c-09ca-496f-83c9-6ac74449feed" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="database-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="Flow Reference" doc:id="24b9a81e-41a0-4059-813a-a4a4932d6075" name="database-main" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="APIKIT:METHOD_NOT_ALLOWED" doc:id="fbd3ecf0-a2ca-4494-9682-7a29107ca69a" expectedErrorType="APIKIT:METHOD_NOT_ALLOWED">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="4bfba26c-09ca-496f-83c9-6ac74449feed" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="database-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="APIKIT:METHOD_NOT_ALLOWED" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="Flow Reference" doc:id="37ce8dbf-20dc-4374-be9a-5c2120b862d2" name="database-main" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="APIKIT:NOT_ACCEPTABLE" doc:id="aa7bffb7-e4b4-48c9-9b73-7c5536dc43ae" expectedErrorType="APIKIT:NOT_ACCEPTABLE">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="4bfba26c-09ca-496f-83c9-6ac74449feed" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="database-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="APIKIT:NOT_ACCEPTABLE" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="Flow Reference" doc:id="ec617c55-74f0-4ab7-904f-b873a68fe12e" name="database-main" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="APIKIT:UNSUPPORTED_MEDIA_TYPE" doc:id="a7d5b84f-dbb6-407e-a8a9-c0af7d3b5ce4" expectedErrorType="APIKIT:UNSUPPORTED_MEDIA_TYPE">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="4bfba26c-09ca-496f-83c9-6ac74449feed" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="database-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="APIKIT:UNSUPPORTED_MEDIA_TYPE" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="Flow Reference" doc:id="47ee7e0e-616e-4c0e-871c-0d185772cef6" name="database-main" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="APIKIT:NOT_IMPLEMENTED" doc:id="11bd29f1-d22a-47e8-89e0-4e1225dd7dba" expectedErrorType="APIKIT:NOT_IMPLEMENTED">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock when" doc:id="4bfba26c-09ca-496f-83c9-6ac74449feed" processor="apikit:router">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="database-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:error typeId="APIKIT:NOT_IMPLEMENTED" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="Flow Reference database-main" doc:id="4a382d64-37d6-4de6-9077-0fa965252723" name="database-main" />
+		</munit:execution>
+	</munit:test>
+
+
+</mule>
